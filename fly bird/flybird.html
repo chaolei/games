@@ -1,0 +1,42 @@
+<!--
+	作者：joke.lei
+	时间：2014-07-08
+	描述：fly bird游戏
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>fly bird leichao</title>
+		<style type="text/css">
+		 	body{text-align: center;padding: 0;margin: 0;background: #fff;padding-top: 20px;}
+		 	.container{width: 80%;margin:0 auto;height: 500px;}
+		 	.clear{clear: both;}
+		 	.game-container{background:#6FC4CE;border: 1px solid #CCCCCC;height: 400px;width:100%;position: relative;overflow: hidden;}
+		 	.bird{z-index:9999;position: absolute;background: url(images/bird.png) no-repeat;width: 30px;height: 20px;}
+		 	.map{height: 400px;width: 4000px;}
+		 	.bar{position: absolute;width: 20px;background: yellow;}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="game-container">
+				<div class="map"></div>
+				<div class="bird"></div>
+			</div>
+			<div class="clear"></div>
+			<div class="intro"><p>个人游戏，纯属娱乐！<a href="javascript:void(0)" id="begin">开始</a></p><p>请按向上键使小鸟向上飞行。</p></div>
+		</div>
+		<script type="text/javascript" src="js/plugn/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/game2.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				var game = new Game();
+				game.init();
+				$("#begin").one("click",function(){
+					game.start();
+				});
+			});
+		</script>
+	</body>
+</html>

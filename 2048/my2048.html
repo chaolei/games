@@ -1,0 +1,68 @@
+<!--
+	作者：joke.lei
+	时间：2014-07-08
+	描述：2048游戏
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>2048 leichao</title>
+		<style type="text/css">
+		 	body{text-align: center;padding: 0;margin: 0;background: #333;}
+		 	.container{width: 300px;margin:0 auto;padding-top: 20px;}
+			.num{font-size:25px;font-weight:bold;border-radius:5px;margin-top:10px;text-align: center;width: 60px;line-height: 60px;height:60px;float: left;margin-left: 10px;background: #FFFFCC;}
+			.clear{clear: both;}
+			.intro{margin-bottom:10px;color: #fff;margin-top: 10px;}
+			.intro p{margin:0;padding: 0;}
+			.c16{background: #24a8ec;}
+			.c32{background: #2472eb;}
+			.c64{background: #173daf;color: #fff;}
+			.c128{background: #258c8e;}
+			.c256{background: #139517;}
+			.c512{background: #db9218;}
+			.c1024{background: #ee0000;}
+			.c2048{background: #ff0000;}
+			.drec{background: #FFFFCC;line-height: 40px;cursor: pointer;font-size: 20px;}
+			.up{margin: 0 auto;width: 40px;}
+			.left{float:left;margin:5px 50px;width: 35px;padding-right: 5px;}
+			.right{float:right;margin:5px 50px;width: 35px;padding-left: 5px;}
+			.down{margin: 0 auto;width: 40px;}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="num"></div>
+			<div class="num"></div>
+			<div class="num"></div>
+			<div class="num"></div>
+			<div class="num"></div>
+			<div class="num"></div>
+			<div class="num"></div>
+			<div class="num"></div>
+			<div class="num"></div>
+			<div class="num"></div>
+			<div class="num"></div>
+			<div class="num"></div>
+			<div class="num"></div>
+			<div class="num"></div>
+			<div class="num"></div>
+			<div class="num"></div>
+			<div class="clear"></div>
+			<div class="intro"><p>个人游戏，纯属娱乐！</p><p>请按上、下、左、右键玩游戏。</p></div>
+			<div class="up drec">︽</div>
+			<div class="left drec">《</div>
+			<div class="right drec">》</div>
+			<div class="clear"></div>
+			<div class="down drec">︾</div>
+		</div>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/game.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				//随机产生2个2.
+				Game.start();
+			});
+		</script>
+	</body>
+</html>
