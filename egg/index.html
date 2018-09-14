@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>小猪佩奇 同款小鸡下蛋</title>
+        <style>
+            body{
+                background: #ACE7F7;
+            }
+            .chicken{
+                position: absolute;
+                width: 100px;
+                height: 101px;
+                background: url(./images/chicken.png) no-repeat;
+                background-size: contain;
+                transition: all 0.3s ease-in-out;
+                z-index: 1;
+            }
+            @keyframes layEgg{
+                0%{transform: translateY(0)}
+                100%{transform: translateY(45px)}
+            }
+            .egg{
+                position: absolute;
+                width: 30px;
+                height: 40px;
+                box-sizing: border-box;
+                animation: layEgg 0.4s ease-in forwards;
+                background: url(./images/egg.png) no-repeat;
+            }
+            .egg0{
+                background-position: 0 0;
+            }
+            .egg1{
+                background-position: -30px 0;
+            }
+            .egg2{
+                background-position: 0 -40px;
+            }
+            .egg3{
+                background-position: -30px -40px;
+            }
+            .score{
+                position: absolute;
+                left: 10px;
+                top: 10px;
+                color: #fff;
+                font-size: 24px;
+            }
+            .score-val{
+                font-size: 36px;
+                color: #D08932;
+                vertical-align: middle;
+                font-family: monospace;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="score">score: <span class="score-val">0</span></div>
+        <div class="chicken"></div>
+
+        <script>
+            var Chicken = function(cnode, sNode){
+                this.cNode = document.querySelector(cnode);
+                this.scorePanel = document.querySelector(sNode);
+                this.posX = 0;
+                this.posY = 0;
+                this.eggNum = 0;
+                this.canLay;//下蛋标识
+
+                this.locateIt = function(){
+                    var w = window.innerWidth, h = window.innerHeight;
+                    var x = Math.random() * w;
+                    var y = Math.random() * h;
+                    x = x > w-100 ? w-100 : x;//需要去除鸡的宽度和蛋的高度
+                    y = y > h-150 ? h-150 : y;
+                    this.posX = x;
+                    this.posY = y;
+                    this.cNode.style.left = x + "px";
+                    this.cNode.style.top = y+ "px";
+                    this.canLay = true;
+
+                };
+                this.layEgg = function(){
+                    this.canLay = false;
+                    this.eggNum++;
+                    var egg = document.createElement("div"), _this = this;
+                    egg.setAttribute("class", "egg egg"+ this.eggNum % 4);
+                    egg.style.left = this.posX + 35 + 'px';
+                    egg.style.top = this.posY + 65 + 'px';
+                    document.body.appendChild(egg);
+                    this.scorePanel.innerText = this.eggNum;
+                    setTimeout(function(){
+                        _this.locateIt();
+                    }, 500);
+                };
+                this.addListener = function(){
+                    var _this = this;
+                    document.addEventListener("keypress",function(e){
+                        if(e.keyCode == 32 && _this.canLay) _this.layEgg();
+                    });
+                }
+                this.init = function(){
+                    var egg = new Image();
+                    egg.src = "./images/egg.png";//预加载鸡蛋图片
+                    this.locateIt();
+                    this.addListener();
+                }
+
+            }
+            var chicken = new Chicken(".chicken",".score-val");
+            chicken.init();
+        </script>
+    </body>
+</html>
