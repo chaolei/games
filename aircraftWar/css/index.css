@@ -1,0 +1,101 @@
+body,div,p,span{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.score{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    color: #fff;
+    font-size: 24px;
+    z-index: 100;
+}
+.score-val{
+    font-size: 36px;
+    color: #D08932;
+    vertical-align: middle;
+    font-family: monospace;
+    font-weight: bold;
+}
+.op-tips{
+    font-size: 13px;
+    color: yellow;
+}
+.land{
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 700px;
+    height: 100%;
+    margin-left: -350px;
+}
+@keyframes moveBg{
+    0%{}
+    100%{top: 0;}
+}
+.lang-bg{
+    position: absolute;
+    top: -300%;
+    left: 0;
+    width: 100%;
+    height: 400%;
+    background: url(../images/bg.jpg) repeat;
+}
+.lang-bg.go{
+    animation: moveBg linear 60s forwards;
+}
+.start-game{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    cursor: pointer;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background: #444;
+    border-radius: 5px;
+    color: #fff;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+.start-game.hide{
+    opacity: 0;
+}
+.challeger{
+    position: absolute;
+    bottom: 0;
+    width: 32px;
+    height: 40px;
+    background: url(../images/aircraft.png) no-repeat;
+    background-position: -5px -80px;
+    transition: left 0.1s linear;
+}
+.enemy{
+    position: absolute;
+    top: -100px;
+}
+.enemy.type1{
+    width: 42px;
+    height: 50px;
+    background: url(../images/aircraft.png) no-repeat;
+    background-position: 0px 0px;
+}
+.enemy.type2{
+    width: 30px;
+    height: 46px;
+    background: url(../images/aircraft.png) no-repeat;
+    background-position: -62px 0px;
+}
+.enemy.type3{
+    width: 37px;
+    height: 48px;
+    background: url(../images/aircraft.png) no-repeat;
+    background-position: -114px 0px;
+}
+.c-bullet{
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background: #D08932;
+}
