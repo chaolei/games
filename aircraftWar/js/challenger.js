@@ -38,13 +38,19 @@ var ChallengerBullet = function(x, num){
 }
 
 /**/
-var challenger = function(){
+var Challenger = function(){
     this.aircraft = null;
-    this.canMove = false;//展示废弃
+    this.canMove = true;//展示废弃
     this.area = 700;
     this.x = 335;
     this.y = window.innerHeight - 40;
+    this.frameId = null;
     
+    this.move = function(){
+        this.directLeft?this.goLeft(this):'';
+        this.directRight?this.goRight(this):'';
+        this.frameId = window.requestAnimationFrame(this.move.bind(this)); 
+    }
 
     this.createAircraft = function(){
         var aircraft = document.createElement("div");
@@ -52,21 +58,36 @@ var challenger = function(){
         aircraft.style.left = this.x + "px";
         this.aircraft = aircraft;
         document.querySelector(".land").appendChild(aircraft);
+
+        this.frameId = window.requestAnimationFrame(this.move.bind(this));
+
     }
 
     this.goLeft = function(_this){
-        var left = _this.aircraft.offsetLeft - 30;
+        _this.directLeft = true;
+        var left = _this.aircraft.offsetLeft - 5;
         left = left < 0 ? 0: left;
         _this.x = left;
         _this.aircraft.style.left = _this.x + "px";
+
     }
 
     this.goRight = function(_this){
-        var left = _this.aircraft.offsetLeft + 30;
+        _this.directRight = true;
+        var left = _this.aircraft.offsetLeft + 5;
         left = left > _this.area - 32 ? _this.area - 32 : left;
         _this.x = left;
         _this.aircraft.style.left = _this.x + "px";
     }
+
+    this.stopLeft = function(_this){
+        _this.directLeft = false;
+    }
+
+    this.stopRight = function(_this){
+        _this.directRight = false;
+    }
+
     this.shot = function(_this){
         var left = _this.x + 10;
         var num = challengerBullets.length;
@@ -74,21 +95,40 @@ var challenger = function(){
         challengerBullets.push(bullet);
     }
 
-    this.keyOp = {
+    this.keyDownOp = {
         key65: this.goLeft,
         key68: this.goRight,
         key32: this.shot
     };
+    this.keyUpOp = {
+        key65: this.stopLeft,
+        key68: this.stopRight
+    };
+
+    this.destory = function(){
+        this.canMove = false;
+        window.cancelAnimationFrame(this.frameId);
+        this.aircraft.remove();
+    }
 
     this.addListener = function(){
         var _this = this;
         document.addEventListener("keydown", function(e){
+            if(!_this.canMove) return ;
             var code = e.keyCode;
-            var op = _this.keyOp['key'+code];
+            var op = _this.keyDownOp['key'+code];
             if(op){
                 op(_this);
             }
-        })
+        });
+        document.addEventListener("keyup", function(e){
+            if(!_this.canMove) return ;
+            var code = e.keyCode;
+            var op = _this.keyUpOp['key'+code];
+            if(op){
+                op(_this);
+            }
+        });
     }
 
     this.init = function(){

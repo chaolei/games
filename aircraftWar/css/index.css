@@ -40,7 +40,7 @@ body,div,p,span{
     left: 0;
     width: 100%;
     height: 400%;
-    background: url(../images/bg.jpg) repeat;
+    background: url(../images/bg.jpg) repeat left bottom;
 }
 .lang-bg.go{
     animation: moveBg linear 60s forwards;
@@ -56,10 +56,10 @@ body,div,p,span{
     border-radius: 5px;
     color: #fff;
     opacity: 1;
-    transition: opacity 0.3s;
+    transition: display 0.3s;
 }
 .start-game.hide{
-    opacity: 0;
+    display: none;
 }
 .challeger{
     position: absolute;
@@ -68,11 +68,17 @@ body,div,p,span{
     height: 40px;
     background: url(../images/aircraft.png) no-repeat;
     background-position: -5px -80px;
-    transition: left 0.1s linear;
 }
 .enemy{
     position: absolute;
     top: -100px;
+}
+.boss{
+    position: absolute;
+    top: -300px;
+    width: 200px;
+    height: 190px;
+    background: url(../images/boss.png) no-repeat;
 }
 .enemy.type1{
     width: 42px;
@@ -98,4 +104,67 @@ body,div,p,span{
     height: 10px;
     border-radius: 100%;
     background: #D08932;
+}
+@keyframes boom{
+    0%{background: url(../images/boom1.png) no-repeat;}
+    35%{background: url(../images/boom2.png) no-repeat;}
+    70%{background: url(../images/boom3.png) no-repeat;}
+    100%{background: transparent;}
+}
+.boom{
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    background: url(../images/boom1.png) no-repeat;
+    animation: boom 0.4s linear forwards;
+}
+
+@keyframes bigboom{
+    0%{background: url(../images/boom1.png) no-repeat;background-size: cover; }
+    35%{background: url(../images/boom2.png) no-repeat;background-size: cover; }
+    70%{background: url(../images/boom3.png) no-repeat;background-size: cover; }
+    100%{background: transparent;}
+}
+.bigboom{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: url(../images/boom1.png) no-repeat;
+    background-size: cover; 
+    animation: bigboom 0.6s linear forwards;
+}
+
+.winner{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 150px;
+    background: #333;
+    box-shadow: -2px -1px 5px #ccc;
+    text-align: center;
+}
+
+.winner p:nth-child(1){
+    color: #D08932;
+    margin-top: 10px;
+    font-size: 20px;
+}
+.winner p:nth-child(2){
+    margin-top: 15px;
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #fff;
+}
+.winner span{
+    margin-top: 20px;
+    cursor: pointer;
+    padding: 5px 20px;
+    background: #555;
+    border-radius: 5px;
+    color: #fff;
+}
+.winner.hide{
+    display: none;
 }
