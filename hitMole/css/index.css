@@ -1,0 +1,82 @@
+body,div{
+    margin: 0;
+    padding: 0;
+    background: #689C04;
+}
+.game-map{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,0);
+    width: 100%;
+    max-width: 750px;
+    background: url(../resource/back.png) no-repeat;
+    background-size: contain;
+    height: 100%;
+    overflow: hidden;
+}
+.hummar{
+    position: absolute;
+    top: 33vw;
+    left: 50%;
+    margin-left: -4.25vw;
+    margin-top: -2.25vw;
+    width: 12.5vw;
+    height: 10.5vw;
+    max-width: 93px;
+    max-height: 79px;
+    background: url(../resource/hummar.png) no-repeat;
+    background-size: cover;
+    z-index: 100;
+    transform-origin: right bottom;
+    transition: transform 0.2s ease-in;
+}
+.hummar.hit{
+    transform: rotate(-30deg);
+}
+.mouse{
+    position: absolute;
+    width: 13.33vw;
+    height: 14.26vw;
+    max-width: 100px;
+    max-height: 107px;
+    background: url(../resource/mouse.png) no-repeat;
+    background-size: cover;
+    opacity: 0;
+    transform: translate(0, -75%);
+}
+.mouse.show{
+    opacity: 1;
+}
+.mouse.hited{
+    background: url(../resource/mousehited.png) no-repeat;
+}
+.wrap{
+    position: absolute;
+    left: 50%;
+    top: 20vw;
+    width: 50%;
+    height: 30%;
+    background:rgba(104,156,4, 0.9);
+    box-sizing: border-box;
+    border: 5px solid #667713;
+    border-radius: 10px;
+    transform: translate(-50%,0);
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+}
+.wrap.hide{
+    opacity: 0;
+}
+.startbtn{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 23vw;
+    height: 9.4vw;
+    max-width: 173px;
+    max-height: 71px;
+    background: url(../resource/start.png) no-repeat;
+    transform: translate(-50%,-50%);
+    background-size: cover;
+}

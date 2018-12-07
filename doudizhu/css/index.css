@@ -1,0 +1,109 @@
+html,body{
+    height: 100%;
+}
+body,div{
+    margin: 0;
+    padding: 0;
+    color: #fff;
+}
+.game-bg{
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;  
+    background: #0C2D58;
+}
+.game-bg:after{
+    position: absolute;
+    box-sizing: content-box;
+    content: "";
+    height: 60%;
+    top: 20%;
+    left: 10%;
+    width: 80%;     
+    background: -webkit-linear-gradient(top,#DAAA56,#985B2C);
+    border: 10px solid #754320;
+    border-radius: 100%;
+}
+.mypanel{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.my-oparea{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.my-op{
+    font-size: 4vw;
+}
+.my-headimg{
+    width: 15vw;
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+}
+.my-cards{
+    margin-right: 5px;
+    display: flex;
+}
+.mycard{
+    height: 22vw;
+    width: 13vw;
+    border: 1px solid #ccc;
+    border-radius: 1vw;
+    margin-left: -9.5vw;
+    font-size: 3.5vw;
+    padding: 8px 5px;
+    box-sizing: border-box;
+    font-weight: bold;
+    display: inline-block;
+    background: #f8f8f8;
+    transform: translate(0, 0) translateZ(0);
+    transition: transform 0.3s ease-in;
+    color: #f30000;;
+    box-shadow: -1px 0 0 1px rgba(0,0,0,0.2);
+}
+.small-j{
+    color: #000;;
+}
+.my-cards .mycard:first-child{
+    margin-left: 0;
+}
+.selected.mycard{
+    transform: translate(0, -7vw) translateZ(0);
+}
+.outcard.mycard{
+    transform: translate(0, -25vw) translateZ(0);
+}
+.my-op div:first-child{
+    margin-bottom: 10px;
+}
+.score{
+    font-size: 3vw;
+    padding: 0 2vw;
+    color: #DAAA56;
+    background: rgba(0,0,0,0.5);
+    border-radius: 4vw;
+    line-height: 4vw;
+}
+.my-score{
+    position: absolute;
+    left: 15vw;
+    top: -6vw;
+}
+.big-j,.small-j{
+    display: inline-block;
+    width: 2vw;
+    word-break: break-all;
+    line-height: 2.5vw;
+    font-size: 2.5vw;
+    text-align: center;
+}
+.spe10{
+    letter-spacing: -7px;
+    margin-left: -5px;
+    font-size: 3.2vw;
+}
