@@ -1,4 +1,5 @@
 var WinWidth = window.innerWidth, WinHeight = window.innerHeight, MapWidth = document.querySelector(".game-map").offsetWidth;
+var curPos = 0, Score=0;
 var Game = {
     mouseList: [],
 
@@ -75,7 +76,29 @@ var Game = {
         }
     },
     checkHit: function(pos) {
-        console.log(pos);
+        var mouseList = document.querySelectorAll(".mouse"), left, top, mwidth, mHeight, cnode;
+        var map = document.querySelector(".game-map");
+        var left1 = map.offsetLeft - map.offsetWidth / 2;
+        if(mouseList.length == 0) return;
+        mwidth = mouseList[0].offsetWidth;
+        mHeight = mouseList[0].offsetHeight;
+        
+        for(var i=0; i<mouseList.length; i++){
+            cnode = mouseList[i];
+            if(cnode.getAttribute("class").indexOf("dead") > -1) continue;
+            top = cnode.offsetTop - 0.75 * mHeight;
+            left = left1 + cnode.offsetLeft;
+            if((pos.x > left && pos.x<left+mwidth) && (pos.y > top && pos.y < top+mHeight)){
+                //console.log('得分');
+                cnode.setAttribute("class","mouse show dead");
+                Score ++;
+                Game.showScore();
+                break;
+            } 
+        }
+    },
+    showScore: function(){
+        document.querySelector(".score").innerHTML = Score+'';
     },
     addListener: function(){
         var _this = this;
@@ -109,22 +132,37 @@ var Game = {
     },
     showMouse: function(){
         var mouse = new Mouse();
-        mouse.show();        
+        mouse.show();
+        setTimeout(function(){
+            mouse = null;
+        },4000);
+
+        var time = Math.random()*3000;
+        setTimeout(Game.showMouse, time);
     }
 }
 var Mouse = function(pos){
     var node = document.createElement("div");
     var num = Game.mouseList.length;
-    var pos = Game.holes[Math.floor(Math.random()*9)];
+    var thisPos = Math.floor(Math.random()*9);
+    if(thisPos == curPos){
+        if(thisPos < 8){
+            thisPos++ ;
+        }else{
+            thisPos-- ;
+        }
+    }
+    curPos = thisPos;
+    var pos = Game.holes[curPos];
 
     node.setAttribute("class", "mouse");
     node.style.left = (pos.x/750*100)+"%";
     node.style.top = (((pos.y/550 * (MapWidth/750*550)) / WinHeight)*100)+"%";
     document.querySelector(".game-map").appendChild(node);
     this.node = node;
-    this.num = num;
-    Game.mouseList.push(this.node);
-    console.log(Game.mouseList.length);
+    //this.num = num;
+    //Game.mouseList.push(this.node);
+    //console.log(Game.mouseList.length);
 }
 Mouse.prototype = {
     show: function(){
@@ -132,13 +170,13 @@ Mouse.prototype = {
         _this.node.setAttribute("class","mouse show");
         setTimeout(function(){
             _this.hide();
-        }, 1000);
+        }, 2000);
     },
     hide: function(){
-        //this.node.setAttribute("class","mouse");
-        //this.node.remove();
-        Game.mouseList.splice(this.num, 1);
-        console.log(Game.mouseList.length);
+        this.node.setAttribute("class","mouse");
+        this.node.remove();
+        //Game.mouseList.splice(this.num, 1);
+        //console.log(Game.mouseList.length);
     }
 }
 

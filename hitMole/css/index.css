@@ -48,6 +48,10 @@ body,div{
 .mouse.show{
     opacity: 1;
 }
+.dead.mouse{
+    background: url(../resource/mousehited.png) no-repeat left center;
+    background-size: contain;
+}
 .mouse.hited{
     background: url(../resource/mousehited.png) no-repeat;
 }
@@ -79,4 +83,12 @@ body,div{
     background: url(../resource/start.png) no-repeat;
     transform: translate(-50%,-50%);
     background-size: cover;
+}
+.score{
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    font-size: 4vw;
+    color: #FFCE44;
+    font-weight: bold;
 }
