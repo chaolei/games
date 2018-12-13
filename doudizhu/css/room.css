@@ -1,0 +1,240 @@
+html,body{
+    height: 100%;
+}
+body,div{
+    margin: 0;
+    padding: 0;
+    color: #fff;
+}
+.game-bg{
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;  
+    background: #0C2D58;
+}
+.game-bg:after{
+    position: absolute;
+    box-sizing: content-box;
+    content: "";
+    height: 60%;
+    top: 20%;
+    left: 10%;
+    width: 80%;     
+    background: -webkit-linear-gradient(top,#DAAA56,#985B2C);
+    border: 10px solid #754320;
+    border-radius: 100%;
+}
+.mypanel{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.game-loading{
+    position: absolute;
+    text-align: center;
+    left: 50%;
+    top: 45%;
+    color: #fff;
+    transform: translate(-50%,0);
+    padding: 10px 20px;
+    font-size: 2.5vw;
+    background: rgba(0,0,0,0.2);
+    z-index: 2;
+    border-radius: 3vw;
+}
+.my-oparea{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.my-op{
+    font-size: 4vw;
+    opacity: 0;
+}
+.my-op.show{
+    opacity: 1;
+}
+.my-headimg{
+    width: 15vw;
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+}
+.play-headimg{
+    width: 15vw;
+}
+.my-cards{
+    margin-right: 5px;
+    display: flex;
+}
+.buyao-tips{
+    position: absolute;
+    left: 120%;
+    top: 5px;
+    font-size: 3.5vw;
+    opacity: 0;
+    white-space: nowrap;
+    color: #fff;
+    font-weight: bold;
+}
+.buyao-tips.show{
+    opacity: 1;
+}
+.play2 .buyao-tips{
+    left: -20%;
+}
+.mycard{
+    height: 22vw;
+    width: 13vw;
+    border: 1px solid #ccc;
+    border-radius: 1vw;
+    margin-left: -9.5vw;
+    font-size: 3.5vw;
+    padding: 8px 5px;
+    box-sizing: border-box;
+    font-weight: bold;
+    display: inline-block;
+    background: #f8f8f8;
+    transform: translate(0, 0) translateZ(0);
+    transition: transform 0.3s ease-in;
+    color: #f30000;;
+    box-shadow: -1px 0 0 1px rgba(0,0,0,0.2);
+}
+.small-j{
+    color: #000;;
+}
+.my-cards .mycard:first-child{
+    margin-left: 0;
+}
+.selected.mycard{
+    transform: translate(0, -7vw) translateZ(0);
+}
+.outcard.mycard{
+    transform: translate(0, -25vw) translateZ(0);
+}
+.my-op div:first-child{
+    margin-bottom: 10px;
+}
+.score{
+    font-size: 3vw;
+    padding: 0 2vw;
+    color: #DAAA56;
+    background: rgba(0,0,0,0.5);
+    border-radius: 4vw;
+    line-height: 4vw;
+}
+.my-score{
+    position: absolute;
+    left: 15vw;
+    top: -6vw;
+}
+.big-j,.small-j{
+    display: inline-block;
+    width: 2vw;
+    word-break: break-all;
+    line-height: 2.5vw;
+    font-size: 2.5vw;
+    text-align: center;
+}
+.spe10{
+    letter-spacing: -7px;
+    margin-left: -5px;
+    font-size: 3.2vw;
+}
+.play1{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+}
+.play1 .play-headimg img{
+    transform: rotateY(180deg);
+}
+.play2{
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
+}
+.play1.show, .play2.show{
+    display: block;
+}
+.hide{
+    display: none;
+}
+.post-cards{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+}
+.postcard{
+    height: 12.5vw;
+    width: 8vw;
+    border: 1px solid #ccc;
+    border-radius: 1vw;
+    margin-left: -5vw;
+    font-size: 3vw;
+    padding: 8px 5px;
+    box-sizing: border-box;
+    font-weight: bold;
+    display: inline-block;
+    background: #f8f8f8;
+    color: #f30000;;
+    box-shadow: -1px 0 0 1px rgba(0,0,0,0.2);
+}
+.post-cards .big-j, .post-cards .small-j{
+    transform: scale(0.8) translate(0,-15px);
+}
+.post-cards .spe10{
+    font-size: 2.7vw;
+}
+
+.toast{
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    text-align: center;
+    z-index: 99;
+}
+.toast .mes{
+    display: inline-block;
+    background: rgba(0,0,0,0.3);
+    color: #fff;
+    padding: 0 20px;
+    max-width: 50%;
+    font-size: 2.5vw;
+    line-height: 5vw;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.toast .mes.error{
+    background: rgba(255,0,0,0.8);
+}
+.toast .mes.warning{
+    color: #111;
+    background: #DAAA56;
+}
+.mybtn{
+    color: #444;
+    background: #DAAA56;
+    padding: 3px 15px;
+    margin: 0 10px;
+    font-size: 3.5vw;
+    font-weight: bold;
+    border-radius: 5px;
+}
+.jiao-dizhu{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: -70px;
+    text-align: center;
+    opacity: 0;
+}
+.jiao-dizhu.show{
+    opacity: 1;
+}
