@@ -21,6 +21,21 @@
     <div class="test">
         <div class="test1">231231231231<br>23123123</div>
         <div class="test2">dasdasd</div>
+        
+        <form action="http://file-dd.jd.com/file/uploadImg.action" method="POST" enctype="multipart/form-data" target="test">
+            <input type="hidden" name="innerURI" value="true" />
+            <input key="input_02" type="hidden" name="html"/>
+            <input type="hidden" name="resDomain" value='jd.com'/>
+            <input key="input_00" type="file" name='upload'/>
+            <input key="input_01" type="hidden" name="callback" value="jsonp"/> 
+            <input type="submit"/>
+        </form>
+        <iframe src="" frameborder="0" name="test" id="test" width="200" height="200"></iframe>
+        <script>
+            document.domain = 'jd.com';
+        </script>
+
+
     </div>
 </body>
 </html>

@@ -41,43 +41,73 @@ var Utils = {
         return document.querySelectorAll(cls);
     },
     checkCard_2: function(cards){//两张牌，可能是对子或王炸
-        var type = -1;
+        var cardTypeObj = {cardType: -1};
         if(cards[0] == cards[1]){
-            type = Utils.cardType.duizi;
+            cardTypeObj.cardType = Utils.cardType.duizi;
+            cardTypeObj.keyCard = cards[0];
         }else if(cards[0] == 16 && cards[1] == 17){
-            type = Utils.cardType.wangzha;
+            cardTypeObj.cardType = Utils.cardType.wangzha;
         }
-        return type;
+        return cardTypeObj;
     },
     checkCard_3: function(cards){
-        var type = -1;
+        var cardTypeObj = {cardType: -1};
         if(cards[0] == cards[1] && cards[1] == cards[2]){
-            type = Utils.cardType.san;
+            cardTypeObj.cardType = Utils.cardType.san;
+            cardTypeObj.keyCard = cards[0];
         }
-        return type;
+        return cardTypeObj;
     },
     checkCard_4: function(cards){//四张牌，可能是三带一或炸弹
-        var type = -1;
+        var cardTypeObj = {cardType: -1};
         if(cards[0] == cards[1] && cards[1] == cards[2] && cards[2] == cards[3]){
-            type = Utils.cardType.zhadan;
-        }else if((cards[0] == cards[1] && cards[1] == cards[2]) ||  (cards[1] == cards[2] && cards[2] == cards[3])){
-            type = Utils.cardType.san1;
+            cardTypeObj.cardType = Utils.cardType.zhadan;
+            cardTypeObj.keyCard = cards[0];
+        }else if(cards[0] == cards[1] && cards[1] == cards[2]){
+
+            cardTypeObj.cardType = Utils.cardType.san1;
+            cardTypeObj.keyCard = cards[0];
+        }else if(cards[1] == cards[2] && cards[2] == cards[3]){
+
+            cardTypeObj.cardType = Utils.cardType.san1;
+            cardTypeObj.keyCard = cards[1];
         }
-        return type;
+        return cardTypeObj;
     },
     checkCard_more: function(cards){ //5张以上情况太多，可能是顺子，连队，飞机不带，飞机带，四带二等
-        var type = -1;
-        if(Utils.isShunZi(cards)) return Utils.cardType.shunzi;
-        if(Utils.isLianDui(cards)) return Utils.cardType.liandui;
-        if(Utils.isFeiJiBuDai(cards)) return Utils.cardType.feiji;
-        if(Utils.isFeiJiDai(cards)) return Utils.cardType.feiji1;
-        if(Utils.isFeiJiDai(cards)) return Utils.cardType.feiji1;
-        if(Utils.isSiDaiEr(cards)) return Utils.cardType.sidaier;
-        return type;
+        var cardTypeObj = {cardType: -1}, typeObj;
+
+        typeObj = Utils.isShunZi(cards);
+        if(typeObj.cardType != -1) {
+            return typeObj;
+        }
+
+        typeObj = Utils.isLianDui(cards);
+        if(typeObj.cardType != -1) {
+            return typeObj;
+        }
+
+        typeObj = Utils.isFeiJiBuDai(cards);
+        if(typeObj.cardType != -1) {
+            return typeObj;
+        }
+
+        typeObj = Utils.isFeiJiDai(cards);
+        if(typeObj.cardType != -1) {
+            return typeObj;
+        }
+
+        typeObj = Utils.isSiDaiEr(cards);
+        if(typeObj.cardType != -1) {
+            return typeObj;
+        }
+
+        return cardTypeObj;
     },
     isShunZi: function(cards){
+        var cardTypeObj = {cardType: -1};
         var lastCard = cards[cards.length - 1], flag = true;
-        if(lastCard >= 15  || cards.length > 12) return false; //2、大小王不能加入顺子
+        if(lastCard >= 15  || cards.length > 12) return cardTypeObj; //2、大小王不能加入顺子
         
         for(var i=0; i<cards.length-1; i++){
             if(cards[i+1] - cards[i] != 1){
@@ -85,12 +115,18 @@ var Utils = {
                 break;
             }
         }
-        return flag;
+        if(flag){
+            cardTypeObj.cardType = Utils.cardType.shunzi;
+            cardTypeObj.keyCard = cards[0];
+        }
+
+        return cardTypeObj;
     },
     isLianDui: function(cards){
+        var cardTypeObj = {cardType: -1};
         var cleng = cards.length, lastCard = cards[cards.length - 1], flag = true;
-        if(cleng < 6 || cleng%2 != 0) return false; //须为双数
-        if(lastCard >= 15 || cards.length > 12) return false; //2、大小王不能加入连队        
+        if(cleng < 6 || cleng%2 != 0) return cardTypeObj; //须为双数
+        if(lastCard >= 15 || cards.length > 12) return cardTypeObj; //2、大小王不能加入连队        
         
         for(var i=0; i<cards.length; i=i+2){
             if(cards[i + 1] != cards[i]){
@@ -104,12 +140,19 @@ var Utils = {
                 }
             }
         }
-        return flag;
+
+        if(flag){
+            cardTypeObj.cardType = Utils.cardType.liandui;
+            cardTypeObj.keyCard = cards[0];
+        }
+
+        return cardTypeObj;
     },
     isFeiJiBuDai: function(ocards){
+        var cardTypeObj = {cardType: -1};
         var cards = [].concat(ocards);
         var cleng = cards.length, lastCard = cards[cards.length - 1], flag = true;
-        if(cleng%3 != 0 || lastCard>=15) return false;
+        if(cleng%3 != 0 || lastCard>=15) return cardTypeObj;
         var num = cleng / 3, carSan = [];
 
         for(var n=0; n<num; n++){//循环得到
@@ -128,11 +171,17 @@ var Utils = {
             }
         }
 
-        return flag;
+        if(flag){
+            cardTypeObj.cardType = Utils.cardType.feiji;
+            cardTypeObj.keyCard = carSan[0];
+        }
+
+        return cardTypeObj;
     },
     isFeiJiDai: function(cards){
+        var cardTypeObj = {cardType: -1};
         var cleng = cards.length, flag = true;
-        if(cleng%4 != 0) return false;
+        if(cleng%4 != 0) return cardTypeObj;
         var num = cleng / 4, carSan = [];
 
         for(var n=0; n<cleng-2; n++){//循环得到
@@ -151,11 +200,18 @@ var Utils = {
         }else{
             flag =  false;
         }
-        return flag;
+
+        if(flag){
+            cardTypeObj.cardType = Utils.cardType.feiji1;
+            cardTypeObj.keyCard = carSan[0];
+        }
+
+        return cardTypeObj;
     },
     isSiDaiEr: function(cards){//暂未支持四带二飞机
+        var cardTypeObj = {cardType: -1};
         var cleng = cards.length, flag = true;
-        if(cleng != 6) return false;
+        if(cleng != 6) return cardTypeObj;
         var num = cleng / 4, carSan = [];
 
         for(var n=0; n<cleng-3; n++){//循环得到
@@ -169,25 +225,55 @@ var Utils = {
             flag = false;
         }
 
-        return flag;
+        if(flag){
+            cardTypeObj.cardType = Utils.cardType.sidaier;
+            cardTypeObj.keyCard = carSan[0];
+        }
+
+        return cardTypeObj;
     },
     checkCard: function(cards){
-        var length = cards.length, flag = false, cardType = -1;
+        var length = cards.length, flag = false, cardTypeObj = {cardType: -1};
         switch(length){
-            case 1: cardType = Utils.cardType.dan; break;
-            case 2: cardType = Utils.checkCard_2(cards); break;
-            case 3: cardType = Utils.checkCard_3(cards); break;
-            case 4: cardType = Utils.checkCard_4(cards); break;
-            default: cardType = Utils.checkCard_more(cards);
+            case 1: cardTypeObj.cardType = Utils.cardType.dan;cardTypeObj.keyCard = cards[0]; break;
+            case 2: cardTypeObj = Utils.checkCard_2(cards); break;
+            case 3: cardTypeObj = Utils.checkCard_3(cards); break;
+            case 4: cardTypeObj = Utils.checkCard_4(cards); break;
+            default: cardTypeObj = Utils.checkCard_more(cards);
         }
-        //判断牌型
-        if(cardType != -1){
+
+        if(cardTypeObj.cardType != -1 && Utils.compareCards(cardTypeObj, cards)){//正常牌型且比别人出牌大
             flag = true;
-            setTimeout(function(){
-                socket.send(JSON.stringify({method:'postCards', data:{room:room, pos: Games.pos, cardType: cardType, cards:cards}}));
+            Games.cardNum = Games.cardNum - cards.length;
+            var isComplete = false;
+            if(Games.cardNum == 0){//出完了
+                isComplete = true; 
+            }
+           
+            setTimeout(function(){               
+                socket.send(JSON.stringify({method:'postCards', data:{isDiZhu: Games.isDiZhu, isComplete: isComplete, room: room, pos: Games.pos, cardType: cardTypeObj.cardType, cards: cards, keyCard: cardTypeObj.keyCard}}));
             },400);
         }
         return flag;
+    },
+    compareCards: function(cardTypeObj, cards){
+        var curCards = Utils.curCards, flag = false;
+        if(!curCards) return true; //第一个出牌，不用比较
+        if(curCards.pos == Games.pos){//自己出的牌，别人都不要
+            Utils.curCards = null;
+            return true;
+        }
+        if(curCards.cardType == cardTypeObj.cardType){//牌型相同
+            if(curCards.cards.length == cards.length && cardTypeObj.keyCard > curCards.keyCard){
+                flag = true;
+            }
+        }else{//牌型不相同
+            if(cardTypeObj.cardType == Utils.cardType.wangzha || cardTypeObj.cardType == Utils.cardType.zhadan){ //王炸或炸弹大于其他何牌
+                flag = true;
+            }
+        }
+        return flag;
+
     },
     testRandomCards: function(){
         var allCards = [3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,11,11,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,15,16,17];
@@ -253,6 +339,7 @@ var Utils = {
             case "showDiZhu": Utils.showDiZhu(data.data.dpos); break;
             case "showJiaoDiZhu": Utils.showJiaoDiZhu(data.data.pos); break;
             case "postCardFlag": Utils.showPostOp(); break;
+            case "gameOver": Utils.showGameOver(data.data); break;
                    
         }
     },
@@ -306,6 +393,8 @@ var Utils = {
             return ;
         }
 
+
+        Utils.curCards = data;
         Utils.hideBuYao();
         cArea.innerHTML = "";
         for(var i=0; i< cards.length; i++){
@@ -320,6 +409,9 @@ var Utils = {
         let cards = Utils.oCards, cNode, tnode, tnum, tpos;
         let myCards = Utils.$All(".mycard");
         let pNode = Utils.$(".my-cards");
+
+        Games.cardNum = 20;//地主20张牌
+        Games.isDiZhu = true;
         for(var i=0;i<cards.length;i++){
 
             cNode = document.createElement("div");
@@ -343,7 +435,7 @@ var Utils = {
             }
         }
     },
-    showToast: function(msg, type){
+    showToast: function(msg, type, time){
         var tcon = Utils.$(".toast");
         var tNode = document.createElement("div");
         var txtNode = document.createElement("span");
@@ -352,13 +444,33 @@ var Utils = {
         tNode.appendChild(txtNode);
 
         tcon.appendChild(tNode);
-        setTimeout(function(){
-            tNode.remove();
-        },2000);
+        if(!time){
+            setTimeout(function(){
+                tNode.remove();
+            },2000);
+        }
     },
+    checkSayBuYao: function(){
+        var flag = false;
+        if(Utils.$All(".buyao-tips.show").length == 2){//自己出牌，但是之前有两个不要的时候，自己必须出牌，不能不出
+            flag = true;  
+        }
+        return flag;
+    },
+    showGameOver: function(data){
+        var mes;
+        if(data.isDiZhu == Games.isDiZhu){
+            mes = "恭喜，获得胜利！";
+        }else{
+            mes = "对不起，你输了！";
+        }
+        Utils.showToast(mes, "warning", true);
+    }
 }
 var Games = {
     pos: 0,
+    cardNum: 17,//默认17张牌
+    isDiZhu: false,
     ohterCards: null,
     init: function(){
         this.addEventListener();
@@ -420,11 +532,15 @@ var Games = {
                 }, 500);
                 Utils.$(".my-op").setAttribute("class", "my-op");
             }else{
-                Utils.showToast("不能这样出牌", "warning");
+                Utils.showToast("不能这样出牌或出牌太小", "warning");
             }
             
         });
         cancel.addEventListener("touchstart",function(e){
+            if(Utils.checkSayBuYao()) {
+                Utils.showToast("不能不要，必须出牌", "warning");
+                return ;
+            }
             var cards = Utils.$All(".mycard.selected");
             for(var i=0;i<cards.length;i++){                
                 cards[i].setAttribute("class","mycard");
