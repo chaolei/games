@@ -482,7 +482,7 @@ var Games = {
     ohterCards: null,
     init: function(){
         this.addEventListener();
-        socket = new WebSocket("ws://127.0.0.1:8001");
+        socket = new WebSocket("ws://118.25.216.97:8080");
         room = Utils.getArgs("roomId");
         document.querySelector(".game-roomnum span").innerText = room;
         console.log(room);
