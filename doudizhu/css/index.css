@@ -16,7 +16,7 @@ body{
     height: 100%;
     max-width: 750px;
     margin: 0 auto;
-    background: url(../images/bg.jpg) no-repeat;
+    background: url(../images/bg.jpg) no-repeat top center;
 }
 .btns{
     position: absolute;
