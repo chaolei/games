@@ -340,6 +340,7 @@ var Utils = {
             case "showJiaoDiZhu": Utils.showJiaoDiZhu(data.data.pos); break;
             case "postCardFlag": Utils.showPostOp(); break;
             case "gameOver": Utils.showGameOver(data.data); break;
+            case "destoryRoom": Utils.showDestoryInfo(); break;
                    
         }
     },
@@ -465,6 +466,13 @@ var Utils = {
             mes = "对不起，你输了！";
         }
         Utils.showToast(mes, "warning", true);
+    },
+    showDestoryInfo: function(){
+        var mes = "有玩家退出了房间，房间解散，将返回首页。";
+        Utils.showToast(mes, "warning", true);
+        setTimeout(()=> {
+            location.href = "./index.html";
+        },2500);
     }
 }
 var Games = {
@@ -476,6 +484,7 @@ var Games = {
         this.addEventListener();
         socket = new WebSocket("ws://127.0.0.1:8001");
         room = Utils.getArgs("roomId");
+        document.querySelector(".game-roomnum span").innerText = room;
         console.log(room);
         socket.onopen = function(){
             socket.send(JSON.stringify({method:'joinRoom', data:{room:room}}));
@@ -485,10 +494,10 @@ var Games = {
             Utils.handleData(data);
         };
         socket.onclose = function(evt){
-            Utils.showToast("WebSocketClosed", "error");
+            Utils.showToast("链接服务器失败", "error");
         };
         socket.onerror = function(evt){
-            Utils.showToast("WebSocketError", "error");
+            Utils.showToast("链接服务器失败", "error");
         };
     },
     addEventListener: function(){

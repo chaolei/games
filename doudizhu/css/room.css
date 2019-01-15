@@ -26,6 +26,16 @@ body,div{
     border: 10px solid #754320;
     border-radius: 100%;
 }
+.game-roomnum{
+    position: absolute;
+    top: 25%;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    font-size: 4vw;
+    color: #985B2C;
+    font-weight: bold;
+}
 .mypanel{
     position: absolute;
     bottom: 0;

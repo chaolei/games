@@ -1,10 +1,10 @@
 body,div,p{
     margin: 0;
-    padding: 0;
-    color: #fff;
+    padding: 0;    
 }
 html,body{
     height: 100%;
+    color: #fff;
 }
 body{
     background: #B01F24;
@@ -32,6 +32,7 @@ body{
    padding: 5px 15px;
    color: #333;
    font-weight: bold;
+   cursor: pointer;
 }
 .join-room{
     border: 5px solid #F2DA3A;
@@ -40,4 +41,55 @@ body{
     padding: 5px 15px;
     color: #333;
     font-weight: bold;
+    cursor: pointer;
+}
+.room-tips{
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    color: #efefef;
+}
+
+.input-roomnum{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.2);
+    visibility: hidden;
+}
+.input-roomnum.show{
+    visibility: visible;
+}
+.input-con{
+    position: absolute;
+    padding: 15px 30px;
+    top: 45%;
+    left: 0%;
+    background: #efefef;
+    box-shadow: 3px 2px 1px 4px rgba(0, 0, 0, 0.3);
+    transform: translate(-50%, 0); 
+    border-radius: 5px;
+    transition: left 0.3s ease-out;
+    color: #000;
+}
+.input-con div{    
+    margin-top: 8px;
+}
+.show .input-con{
+    left: 50%;
+}
+.room-num{
+    border-radius: 5px;
+    border: 1px solid #cccc;
+    height: 25px;
+    padding-left: 5px;
+}
+.enter-room{
+    color: #00f;
+    cursor: pointer;
 }
